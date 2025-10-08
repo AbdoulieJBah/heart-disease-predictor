@@ -7,16 +7,21 @@ Original file is located at
     https://colab.research.google.com/drive/1MHUaljpbNf5KVjY4nh5uwsmGMLEPWaQh
 """
 
+
+
 import streamlit as st
 import pandas as pd
-import numpy as np
 import pickle
 
-# Load your trained model and scaler
+# -------------------------
+# Load trained model & scaler
+# -------------------------
 model = pickle.load(open('heart_model.pkl', 'rb'))
 scaler = pickle.load(open('scaler.pkl', 'rb'))
 
+# -------------------------
 # Streamlit UI
+# -------------------------
 st.title("🫀 Heart Disease Risk Predictor")
 st.write("Enter your health details below to estimate your heart disease risk:")
 
@@ -38,7 +43,12 @@ thal = st.selectbox("Thalassemia (0–3)", [0, 1, 2, 3])
 # Convert categorical input
 sex = 1 if sex == "Male" else 0
 
-# ✅ Build DataFrame with column names exactly as used during training
+# -------------------------
+# Build DataFrame matching training features
+# -------------------------
+feature_columns = ['age','sex','cp','trestbps','chol','fbs','restecg',
+                   'thalach','exang','oldpeak','slope','ca','thal']
+
 input_data = pd.DataFrame([{
     'age': age,
     'sex': sex,
@@ -55,7 +65,12 @@ input_data = pd.DataFrame([{
     'thal': thal
 }])
 
-# Scale and predict
+# Ensure column order matches training
+input_data = input_data[feature_columns]
+
+# -------------------------
+# Scale & predict
+# -------------------------
 try:
     scaled_input = scaler.transform(input_data)
     prediction = model.predict(scaled_input)
@@ -69,4 +84,3 @@ try:
 
 except Exception as e:
     st.error(f"Error: {e}")
-
