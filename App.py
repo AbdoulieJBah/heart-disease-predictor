@@ -44,26 +44,33 @@ thal = st.selectbox("Thalassemia (0–3)", [0, 1, 2, 3])
 sex = 1 if sex == "Male" else 0
 
 # -------------------------
+# -------------------------
 # Build DataFrame matching training features
 # -------------------------
-feature_columns = ['age','sex','cp','trestbps','chol','fbs','restecg',
-                   'thalach','exang','oldpeak','slope','ca','thal']
+feature_columns = ['age','sex','dataset','cp','trestbps','chol','fbs',
+                   'restecg','thalch','exang','oldpeak','slope','ca','thal']
+
+dataset = 0  # You can set a default value (0 or whatever was used in training)
 
 input_data = pd.DataFrame([{
     'age': age,
     'sex': sex,
+    'dataset': dataset,   # added this line
     'cp': cp,
     'trestbps': trestbps,
     'chol': chol,
     'fbs': fbs,
     'restecg': restecg,
-    'thalach': thalach,
+    'thalch': thalach,    # renamed this to match training column name
     'exang': exang,
     'oldpeak': oldpeak,
     'slope': slope,
     'ca': ca,
     'thal': thal
 }])
+
+# Ensure correct column order
+input_data = input_data[feature_columns]
 
 # Ensure column order matches training
 input_data = input_data[feature_columns]
