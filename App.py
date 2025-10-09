@@ -5,7 +5,7 @@ import pickle
 # -------------------------
 # Load trained RandomForest GridSearchCV pipeline
 # -------------------------
-model = pickle.load(open('rf_grid.pkl', 'rb'))  # Make sure this file is in the same folder
+model = pickle.load(open('best_model_RandomForestClassifier.pkl', 'rb'))  # Make sure this file is in the same folder
 
 # -------------------------
 # Streamlit UI
