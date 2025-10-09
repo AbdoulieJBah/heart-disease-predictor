@@ -16,8 +16,8 @@ import pickle
 # -------------------------
 # Load trained model & scaler
 # -------------------------
-model = pickle.load(open('heart_model.pkl', 'rb'))
-scaler = pickle.load(open('scaler.pkl', 'rb'))
+model = pickle.load(open('rf_grid.pkl', 'rb'))
+
 
 # -------------------------
 # Streamlit UI
